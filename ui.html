@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodTunes - Music for Your Mood</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #fd79a8;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        p.subtitle {
+            color: #636e72;
+            margin-bottom: 30px;
+        }
+
+        .mood-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .mood-option {
+            padding: 10px 15px;
+            border-radius: 50px;
+            background: #f1f1f1;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .mood-option:hover {
+            transform: translateY(-2px);
+        }
+
+        .mood-option.selected {
+            border-color: var(--primary);
+            background: white;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .song-display {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            display: none;
+        }
+
+        .song-display h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5d4bcc;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #fc68a1;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: var(--danger);
+            margin: 20px 0;
+            display: none;
+        }
+
+        footer {
+            margin-top: 20px;
+            color: #636e72;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://placehold.co/200x200" alt="MoodTunes logo showing headphones with colorful sound waves radiating out">
+        </div>
+        
+        <h1>MoodTunes</h1>
+        <p class="subtitle">Find the perfect song for your current mood</p>
+        
+        <div class="mood-selector">
+            <div class="mood-option" data-mood="happy">Happy</div>
+            <div class="mood-option" data-mood="sad">Sad</div>
+            <div class="mood-option" data-mood="energetic">Energetic</div>
+            <div class="mood-option" data-mood="relaxed">Relaxed</div>
+        </div>
+        
+        <div class="error-message">
+            Sorry, we couldn't find songs for that mood. Please try another one.
+        </div>
+        
+        <div class="song-display">
+            <h3>We recommend:</h3>
+            <p id="recommended-song" class="song-name" style="font-weight:600"></p>
+            <div class="controls">
+                <button class="btn-primary" id="play-song">Play Song</button>
+                <button class="btn-secondary" id="another-song">Another Song</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2023 MoodTunes | Created with ❤️ for music lovers
+    </footer>
+
+    <script>
+        // Song database
+        const songs = {
+            happy: [
+                "Walking on Sunshine - Katrina & The Waves",
+                "Happy - Pharrell Williams",
+                "Don't Stop Me Now - Queen",
+                "Good as Hell - Lizzo",
+                "I Gotta Feeling - The Black Eyed Peas"
+            ],
+            sad: [
+                "Someone Like You - Adele",
+                "Everybody Hurts - R.E.M.",
+                "The Scientist - Coldplay",
+                "Skinny Love - Bon Iver",
+                "Hallelujah - Jeff Buckley"
+            ],
+            energetic: [
+                "Thunderstruck - AC/DC",
+                "Uptown Funk - Bruno Mars",
+                "Can't Hold Us - Macklemore",
+                "Titanium - David Guetta ft. Sia",
+                "Power - Kanye West"
+            ],
+            relaxed: [
+                "Stairway to Heaven - Led Zeppelin",
+                "Bubbly - Colbie Caillat",
+                "Holocene - Bon Iver",
+                "Feather - Nujabes",
+                "Landslide - Fleetwood Mac"
+            ]
+        };
+
+        // DOM elements
+        const moodOptions = document.querySelectorAll('.mood-option');
+        const songDisplay = document.querySelector('.song-display');
+        const songName = document.getElementById('recommended-song');
+        const playBtn = document.getElementById('play-song');
+        const anotherSongBtn = document.getElementById('another-song');
+        const errorMessage = document.querySelector('.error-message');
+
+        // Current state
+        let currentMood = '';
+        let currentSong = '';
+
+        // Event listeners for mood selection
+        moodOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Reset UI
+                moodOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                errorMessage.style.display = 'none';
+                
+                currentMood = option.dataset.mood;
+                recommendSong();
+            });
+        });
+
+        // Recommend a random song for the current mood
+        function recommendSong() {
+            if (songs[currentMood]) {
+                currentSong = getRandomSong(currentMood);
+                songName.textContent = currentSong;
+                songDisplay.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'block';
+                songDisplay.style.display = 'none';
+            }
+        }
+
+        // Get random song from mood category
+        function getRandomSong(mood) {
+            const moodSongs = songs[mood];
+            return moodSongs[Math.floor(Math.random() * moodSongs.length)];
+        }
+
+        // Event listeners for buttons
+        playBtn.addEventListener('click', () => {
+            alert(`Now playing: ${currentSong}`);
+        });
+
+        anotherSongBtn.addEventListener('click', () => {
+            if (currentMood) {
+                currentSong = getRandomSong(currentMood);
+                songName.textContent = currentSong;
+            }
+        });
+    </script>
+</body>
+</html>
