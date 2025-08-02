@@ -45,10 +45,5 @@ To get started, open `homepage.html` in your browser. From there, click "Start E
 - Improve mobile responsiveness and accessibility
 - Mood detection via camera or voice input using AI
 
-## 📸 Screenshots
 
-> Add screenshots here if desired (e.g., UI mockups, user flow)
 
-## 📄 License
-
-MIT License — feel free to use and modify!
