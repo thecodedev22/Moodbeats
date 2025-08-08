@@ -152,6 +152,15 @@
             display: none;
         }
 
+        .status-message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: var(--success);
+            color: white;
+            display: none;
+        }
+
         footer {
             margin-top: 20px;
             color: #636e72;
@@ -179,6 +188,10 @@
             Sorry, we couldn't find songs for that mood. Please try another one.
         </div>
         
+        <div class="status-message">
+            Button clicked! Check console for details.
+        </div>
+        
         <div class="song-display">
             <h3>We recommend:</h3>
             <p id="recommended-song" class="song-name" style="font-weight:600"></p>
@@ -194,7 +207,7 @@
     </footer>
 
     <script>
-        // Song database
+        // Song database - 50 songs for each category
         const songs = {
             happy: [
                 "Walking on Sunshine - Katrina & The Waves",
@@ -203,228 +216,206 @@
                 "Good as Hell - Lizzo",
                 "I Gotta Feeling - The Black Eyed Peas",
                 "Uptown Funk - Mark Ronson ft. Bruno Mars",
-    "Walking on Sunshine - Katrina and the Waves",
-    "I Want It That Way - Backstreet Boys",
-    "Dancing Queen - ABBA",
-    "Mr. Blue Sky - Electric Light Orchestra",
-    "Don't Stop Me Now - Queen",
-    "September - Earth, Wind & Fire",
-    "I Got a Feeling - Black Eyed Peas",
-    "Sugar - Maroon 5",
-    "Shake It Off - Taylor Swift",
-    "Best Day of My Life - American Authors",
-    "Good Vibrations - The Beach Boys",
-    "Here Comes the Sun - The Beatles",
-    "Three Little Birds - Bob Marley",
-    "Counting Stars - OneRepublic",
-    "On Top of the World - Imagine Dragons",
-    "Roar - Katy Perry",
-    "Thunder - Imagine Dragons",
-    "What Makes You Beautiful - One Direction",
-    "Sunflower - Post Malone & Swae Lee",
-    "Good Time - Owl City & Carly Rae Jepsen",
-    "Cheerleader - OMI",
-    "All Star - Smash Mouth",
-    "I'm Yours - Jason Mraz",
-    "Count on Me - Bruno Mars",
-    "Perfect - Ed Sheeran",
-    "High Hopes - Panic! At The Disco",
-    "Banana Pancakes - Jack Johnson",
-    "Better Days - OneRepublic",
-    "Good Morning - Kanye West",
-    "Lovely Day - Bill Withers",
-    "Pocket Full of Sunshine - Natasha Bedingfield",
-    "Beautiful Boy - John Lennon",
-    "Here I Go Again - Whitesnake",
-    "Life is Good - Future ft. Drake",
-    "Good Life - OneRepublic",
-    "Brave - Sara Bareilles",
-    "Try Everything - Shakira",
-    "Celebration - Kool & The Gang",
-    "I Choose You - Sara Bareilles",
-    "Good Day - Nappy Roots",
-    "All About That Bass - Meghan Trainor",
-    "Can't Help Myself - The Four Tops",
-    "Stronger - Kelly Clarkson",
-    "Havana - Camila Cabello",
-    "Blinding Lights - The Weeknd",
-    "What a Wonderful World - Louis Armstrong",
-    "Isn't She Lovely - Stevie Wonder",
-    "Golden - Harry Styles",
-    "Sunshine - Matisyahu",
-    "Feel Good Inc. - Gorillaz",
-    "Dancing in the Street - Martha and the Vandellas",
-    "Good Morning Baltimore - Hairspray Soundtrack",
-    "Weightless - All Time Low",
-    "Mambo No. 5 - Lou Bega",
-    "I Feel Good - James Brown",
-    "Happy Together - The Turtles",
-    "Jump - Van Halen",
-    "Valerie - Steve Winwood",
-    "Girls Just Want to Have Fun - Cyndi Lauper",
-    "Twist and Shout - The Beatles",
-    "I Will Survive - Gloria Gaynor",
-    "Respect - Aretha Franklin",
-    "Good Times - Chic",
-    "Love Shack - The B-52's",
-    "Come on Eileen - Dexys Midnight Runners",
-    "Footloose - Kenny Loggins",
-    "I Want to Break Free - Queen",
-    "Livin' on a Prayer - Bon Jovi",
-    "Don't Stop Believin' - Journey",
-    "Eye of the Tiger - Survivor",
-    "We Are the Champions - Queen",
-    "Simply the Best - Tina Turner",
-    "I'm Walking on Sunshine - Katrina and the Waves",
-    "Party in the U.S.A. - Miley Cyrus",
-    "Dynamite - BTS",
-    "Butter - BTS",
-    "As It Was - Harry Styles",
-    "Stay - The Kid LAROI & Justin Bieber",
-    "Levitating - Dua Lipa",
-    "Watermelon Sugar - Harry Styles",
-    "Good 4 U - Olivia Rodrigo",
-    "Save Your Tears - The Weeknd",
-    "Peaches - Justin Bieber",
-    "Mood - 24kGoldn ft. iann dior",
-    "positions - Ariana Grande",
-    "Flowers - Miley Cyrus",
-    "As It Was - Harry Styles",
-    "About Damn Time - Lizzo",
-    "Heat Waves - Glass Animals",
-    "Industry Baby - Lil Nas X & Jack Harlow",
-    "Good as Hell - Lizzo",
-    "Cruel Summer - Taylor Swift",
-    "Circles - Post Malone",
-    "Blinding Lights - The Weeknd",
-    "Watermelon Sugar - Harry Styles",
-    "Don't Start Now - Dua Lipa",
-    "The Bones - Maren Morris",
-    "Adore You - Harry Styles",
-    "Someone You Loved - Lewis Capaldi"
+                "Dancing Queen - ABBA",
+                "Mr. Blue Sky - Electric Light Orchestra",
+                "September - Earth, Wind & Fire",
+                "Sugar - Maroon 5",
+                "Shake It Off - Taylor Swift",
+                "Best Day of My Life - American Authors",
+                "Good Vibrations - The Beach Boys",
+                "Here Comes the Sun - The Beatles",
+                "Three Little Birds - Bob Marley",
+                "Counting Stars - OneRepublic",
+                "On Top of the World - Imagine Dragons",
+                "Roar - Katy Perry",
+                "Thunder - Imagine Dragons",
+                "What Makes You Beautiful - One Direction",
+                "Sunflower - Post Malone & Swae Lee",
+                "Good Time - Owl City & Carly Rae Jepsen",
+                "Cheerleader - OMI",
+                "All Star - Smash Mouth",
+                "I'm Yours - Jason Mraz",
+                "Count on Me - Bruno Mars",
+                "Perfect - Ed Sheeran",
+                "High Hopes - Panic! At The Disco",
+                "Banana Pancakes - Jack Johnson",
+                "Better Days - OneRepublic",
+                "Lovely Day - Bill Withers",
+                "Pocket Full of Sunshine - Natasha Bedingfield",
+                "Beautiful Boy - John Lennon",
+                "Life is Good - Future ft. Drake",
+                "Good Life - OneRepublic",
+                "Brave - Sara Bareilles",
+                "Try Everything - Shakira",
+                "Celebration - Kool & The Gang",
+                "Can't Help Myself - The Four Tops",
+                "Stronger - Kelly Clarkson",
+                "Havana - Camila Cabello",
+                "Blinding Lights - The Weeknd",
+                "What a Wonderful World - Louis Armstrong",
+                "Isn't She Lovely - Stevie Wonder",
+                "Golden - Harry Styles",
+                "Feel Good Inc. - Gorillaz",
+                "I Feel Good - James Brown",
+                "Happy Together - The Turtles",
+                "Girls Just Want to Have Fun - Cyndi Lauper",
+                "Party in the U.S.A. - Miley Cyrus"
             ],
             sad: [
                 "Someone Like You - Adele",
+                "Hello - Adele",
+                "Mad World - Gary Jules",
+                "Hurt - Johnny Cash",
+                "Black - Pearl Jam",
+                "Tears in Heaven - Eric Clapton",
                 "Everybody Hurts - R.E.M.",
-                "The Scientist - Coldplay",
+                "The Sound of Silence - Simon & Garfunkel",
+                "Creep - Radiohead",
+                "Hallelujah - Jeff Buckley",
+                "Fix You - Coldplay",
                 "Skinny Love - Bon Iver",
-                "Hallelujah - Jeff Buckley"
-                "Someone Like You - Adele",
-    "Hello - Adele",
-    "Mad World - Gary Jules",
-    "Hurt - Johnny Cash",
-    "Black - Pearl Jam",
-    "Tears in Heaven - Eric Clapton",
-    "Everybody Hurts - R.E.M.",
-    "The Sound of Silence - Simon & Garfunkel",
-    "Creep - Radiohead",
-    "Hallelujah - Jeff Buckley",
-    "Fix You - Coldplay",
-    "Skinny Love - Bon Iver",
-    "Yesterday - The Beatles",
-    "Losing You - Solange",
-    "Breathe Me - Sia",
-    "Heavy - Linkin Park ft. Kiiara",
-    "Unwell - Matchbox Twenty",
-    "How to Save a Life - The Fray",
-    "The Night We Met - Lord Huron",
-    "When She Loved Me - Sarah McLachlan",
-    "Snuff - Slipknot",
-    "One More Day - Diamond Rio",
-    "Alone - Heart",
-    "Cemetery Drive - My Chemical Romance",
-    "Adam's Song - Blink-182",
-    "Nutshell - Alice in Chains",
-    "Zombie - The Cranberries",
-    "Iris - Goo Goo Dolls",
-    "The Scientist - Coldplay",
-    "Tears Don't Fall - Bullet for My Valentine",
-    "Hear You Me - Jimmy Eat World",
-    "Falling Away from Me - Korn",
-    "Leave Out All the Rest - Linkin Park",
-    "So Far Away - Avenged Sevenfold",
-    "Scars to Your Beautiful - Alessia Cara",
-    "Broken - Seether ft. Amy Lee",
-    "Everybody's Gotta Learn Sometime - Beck",
-    "Hurt - Nine Inch Nails",
-    "The Reason - Hoobastank",
-    "How Could You Leave Us - NF",
-    "Whiskey Lullaby - Brad Paisley ft. Alison Krauss",
-    "Ronan - Taylor Swift",
-    "Skin - Sixx:A.M.",
-    "My Immortal - Evanescence",
-    "Going Under - Evanescence",
-    "Boulevard of Broken Dreams - Green Day",
-    "Numb - Linkin Park",
-    "In the End - Linkin Park",
-    "Crawling - Linkin Park",
-    "One Step Closer - Linkin Park",
-    "What I've Done - Linkin Park",
-    "Shadow of the Day - Linkin Park",
-    "Breaking the Habit - Linkin Park",
-    "Somewhere I Belong - Linkin Park",
-    "From the Inside - Linkin Park",
-    "Papercut - Linkin Park",
-    "Faint - Linkin Park",
-    "Points of Authority - Linkin Park",
-    "A Place for My Head - Linkin Park",
-    "Forgotten - Linkin Park",
-    "Castle of Glass - Linkin Park",
-    "Waiting for the End - Linkin Park",
-    "The Messenger - Linkin Park",
-    "Iridescent - Linkin Park",
-    "When They Come for Me - Linkin Park",
-    "Burning in the Skies - Linkin Park",
-    "Robot Boy - Linkin Park",
-    "Blackout - Linkin Park",
-    "Wretches and Kings - Linkin Park",
-    "Wisdom, Justice, and Love - Linkin Park",
-    "The Requiem - Linkin Park",
-    "The Radiance - Linkin Park",
-    "The Hunting Party - Linkin Park",
-    "All for Nothing - Linkin Park",
-    "Guilty All the Same - Linkin Park",
-    "The Summoning - Linkin Park",
-    "War - Linkin Park",
-    "Wastelands - Linkin Park",
-    "Until It's Gone - Linkin Park",
-    "Rebellion - Linkin Park",
-    "Mark the Graves - Linkin Park",
-    "Drawbar - Linkin Park",
-    "Final Masquerade - Linkin Park",
-    "A Line in the Sand - Linkin Park",
-    "Heavy Is the Crown - Linkin Park",
-    "The Emptiness Machine - Linkin Park",
-    "Cut the Bridge - Linkin Park",
-    "Casualty - Linkin Park",
-    "Overflow - Linkin Park",
-    "Two Faced - Linkin Park",
-    "Over Each Other - Linkin Park",
-    "Good Things Go - Linkin Park",
-    "IGYEIH - Linkin Park",
-    "Stained - Linkin Park",
-    "QWERTY - Linkin Park",
-    "And One - Linkin Park",
-    "Across the Line - Linkin Park",
-    "Pretend to Be - Linkin Park",
-    "Slip - Linkin Park",
-    "What We Don't Know - Linkin Park",
-    "Part of Me - Linkin Park",
-    "Breaking Point - Linkin Park"
-        ],
+                "Yesterday - The Beatles",
+                "Breathe Me - Sia",
+                "Heavy - Linkin Park ft. Kiiara",
+                "Unwell - Matchbox Twenty",
+                "How to Save a Life - The Fray",
+                "The Night We Met - Lord Huron",
+                "When She Loved Me - Sarah McLachlan",
+                "Adam's Song - Blink-182",
+                "Nutshell - Alice in Chains",
+                "Zombie - The Cranberries",
+                "Iris - Goo Goo Dolls",
+                "The Scientist - Coldplay",
+                "Hear You Me - Jimmy Eat World",
+                "Leave Out All the Rest - Linkin Park",
+                "So Far Away - Avenged Sevenfold",
+                "Scars to Your Beautiful - Alessia Cara",
+                "Broken - Seether ft. Amy Lee",
+                "The Reason - Hoobastank",
+                "How Could You Leave Us - NF",
+                "Whiskey Lullaby - Brad Paisley ft. Alison Krauss",
+                "My Immortal - Evanescence",
+                "Going Under - Evanescence",
+                "Boulevard of Broken Dreams - Green Day",
+                "Numb - Linkin Park",
+                "In the End - Linkin Park",
+                "Crawling - Linkin Park",
+                "What I've Done - Linkin Park",
+                "Shadow of the Day - Linkin Park",
+                "Breaking the Habit - Linkin Park",
+                "Somewhere I Belong - Linkin Park",
+                "Papercut - Linkin Park",
+                "Faint - Linkin Park",
+                "Castle of Glass - Linkin Park",
+                "Waiting for the End - Linkin Park",
+                "Iridescent - Linkin Park",
+                "Final Masquerade - Linkin Park",
+                "One More Light - Linkin Park",
+                "Heavy Is the Crown - Linkin Park"
+            ],
             energetic: [
                 "Thunderstruck - AC/DC",
-                "Uptown Funk - Bruno Mars",
-                "Can't Hold Us - Macklemore",
-                "Titanium - David Guetta ft. Sia",
-                "Power - Kanye West"
+                "We Will Rock You - Queen",
+                "Eye of the Tiger - Survivor",
+                "Don't Stop Believin' - Journey",
+                "Livin' on a Prayer - Bon Jovi",
+                "Jump - Van Halen",
+                "Born to Run - Bruce Springsteen",
+                "We Are the Champions - Queen",
+                "Another One Bites the Dust - Queen",
+                "Highway to Hell - AC/DC",
+                "You Shook Me All Night Long - AC/DC",
+                "Back in Black - AC/DC",
+                "Immigrant Song - Led Zeppelin",
+                "Kashmir - Led Zeppelin",
+                "Rock and Roll - Led Zeppelin",
+                "Whole Lotta Love - Led Zeppelin",
+                "Paranoid - Black Sabbath",
+                "Iron Man - Black Sabbath",
+                "Master of Puppets - Metallica",
+                "Enter Sandman - Metallica",
+                "One - Metallica",
+                "Nothing Else Matters - Metallica",
+                "Welcome to the Jungle - Guns N' Roses",
+                "Sweet Child O' Mine - Guns N' Roses",
+                "Paradise City - Guns N' Roses",
+                "November Rain - Guns N' Roses",
+                "Smells Like Teen Spirit - Nirvana",
+                "Come As You Are - Nirvana",
+                "In Bloom - Nirvana",
+                "Lithium - Nirvana",
+                "Basket Case - Green Day",
+                "American Idiot - Green Day",
+                "When I Come Around - Green Day",
+                "Good Riddance - Green Day",
+                "Alive - Pearl Jam",
+                "Even Flow - Pearl Jam",
+                "Jeremy - Pearl Jam",
+                "Better Man - Pearl Jam",
+                "Man in the Box - Alice in Chains",
+                "Would? - Alice in Chains",
+                "Them Bones - Alice in Chains",
+                "Rooster - Alice in Chains",
+                "Touch Me I'm Sick - Mudhoney",
+                "Hunger Strike - Temple of the Dog",
+                "Say Hello 2 Heaven - Temple of the Dog",
+                "Rusty Cage - Soundgarden",
+                "Black Hole Sun - Soundgarden",
+                "Spoonman - Soundgarden",
+                "Fell on Black Days - Soundgarden",
+                "Outshined - Soundgarden"
             ],
             relaxed: [
                 "Stairway to Heaven - Led Zeppelin",
-                "Bubbly - Colbie Caillat",
-                "Holocene - Bon Iver",
-                "Feather - Nujabes",
-                "Landslide - Fleetwood Mac"
+                "Hotel California - Eagles",
+                "Wish You Were Here - Pink Floyd",
+                "Comfortably Numb - Pink Floyd",
+                "Shine On You Crazy Diamond - Pink Floyd",
+                "Time - Pink Floyd",
+                "Breathe - Pink Floyd",
+                "The Great Gig in the Sky - Pink Floyd",
+                "Us and Them - Pink Floyd",
+                "Money - Pink Floyd",
+                "Landslide - Fleetwood Mac",
+                "Dreams - Fleetwood Mac",
+                "Go Your Own Way - Fleetwood Mac",
+                "Don't Stop - Fleetwood Mac",
+                "Rhiannon - Fleetwood Mac",
+                "The Chain - Fleetwood Mac",
+                "Never Going Back Again - Fleetwood Mac",
+                "Gold Dust Woman - Fleetwood Mac",
+                "Tusk - Fleetwood Mac",
+                "Sara - Fleetwood Mac",
+                "Fire and Rain - James Taylor",
+                "Sweet Caroline - Neil Diamond",
+                "American Pie - Don McLean",
+                "Vincent - Don McLean",
+                "The Sound of Silence - Simon & Garfunkel",
+                "Bridge Over Troubled Water - Simon & Garfunkel",
+                "Mrs. Robinson - Simon & Garfunkel",
+                "The Boxer - Simon & Garfunkel",
+                "Scarborough Fair - Simon & Garfunkel",
+                "April Come She Will - Simon & Garfunkel",
+                "Mad World - Tears for Fears",
+                "Everybody Wants to Rule the World - Tears for Fears",
+                "Head Over Heels - Tears forEars",
+                "Shout - Tears for Fears",
+                "Pale Shelter - Tears for Fears",
+                "Change - Tears for Fears",
+                "The Way You Make Me Feel - Michael Jackson",
+                "Billie Jean - Michael Jackson",
+                "Beat It - Michael Jackson",
+                "Smooth Criminal - Michael Jackson",
+                "Man in the Mirror - Michael Jackson",
+                "Black or White - Michael Jackson",
+                "Remember the Time - Michael Jackson",
+                "You Are Not Alone - Michael Jackson",
+                "Earth Song - Michael Jackson",
+                "They Don't Care About Us - Michael Jackson",
+                "Stranger in Moscow - Michael Jackson",
+                "You Rock My World - Michael Jackson",
+                "The Girl Is Mine - Michael Jackson",
+                "Rock with You - Michael Jackson"
             ]
         };
 
@@ -435,14 +426,26 @@
         const playBtn = document.getElementById('play-song');
         const anotherSongBtn = document.getElementById('another-song');
         const errorMessage = document.querySelector('.error-message');
+        const statusMessage = document.querySelector('.status-message');
 
         // Current state
         let currentMood = '';
         let currentSong = '';
 
+        // Show status message
+        function showStatus(message) {
+            statusMessage.textContent = message;
+            statusMessage.style.display = 'block';
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
+
         // Event listeners for mood selection
         moodOptions.forEach(option => {
             option.addEventListener('click', () => {
+                console.log('Mood clicked:', option.dataset.mood);
+                
                 // Reset UI
                 moodOptions.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
@@ -455,13 +458,17 @@
 
         // Recommend a random song for the current mood
         function recommendSong() {
+            console.log('Recommending song for mood:', currentMood);
+            
             if (songs[currentMood]) {
                 currentSong = getRandomSong(currentMood);
                 songName.textContent = currentSong;
                 songDisplay.style.display = 'block';
+                console.log('Song recommended:', currentSong);
             } else {
                 errorMessage.style.display = 'block';
                 songDisplay.style.display = 'none';
+                console.log('No songs found for mood:', currentMood);
             }
         }
 
@@ -471,17 +478,32 @@
             return moodSongs[Math.floor(Math.random() * moodSongs.length)];
         }
 
-        // Event listeners for buttons
+        // Event listeners for buttons - ENHANCED with better feedback
         playBtn.addEventListener('click', () => {
-            alert(`Now playing: ${currentSong}`);
+            console.log('Play button clicked for song:', currentSong);
+            showStatus(`Now playing: ${currentSong}`);
+            
+            
+            alert(`🎵 Now playing: ${currentSong}\n\n(In a real app, this would start playing the song!)`);
         });
 
         anotherSongBtn.addEventListener('click', () => {
+            console.log('Another song button clicked');
+            
             if (currentMood) {
+                const previousSong = currentSong;
                 currentSong = getRandomSong(currentMood);
                 songName.textContent = currentSong;
+                showStatus('New song recommended!');
+                console.log('Changed from:', previousSong, 'to:', currentSong);
+            } else {
+                console.log('No mood selected');
             }
         });
+
+        // Test that JavaScript is working
+        console.log('MoodTunes JavaScript loaded successfully');
+        console.log('Available songs:', Object.keys(songs));
     </script>
 </body>
 </html>
