@@ -196,7 +196,7 @@
             <h3>We recommend:</h3>
             <p id="recommended-song" class="song-name" style="font-weight:600"></p>
             <div class="controls">
-                <button class="btn-primary" id="play-song">Play Song</button>
+                <button class="btn-primary" id="play-song">Find on YT</button>
                 <button class="btn-secondary" id="another-song">Another Song</button>
             </div>
         </div>
@@ -398,7 +398,7 @@
                 "April Come She Will - Simon & Garfunkel",
                 "Mad World - Tears for Fears",
                 "Everybody Wants to Rule the World - Tears for Fears",
-                "Head Over Heels - Tears forEars",
+                "Head Over Heels - Tears for Fears",
                 "Shout - Tears for Fears",
                 "Pale Shelter - Tears for Fears",
                 "Change - Tears for Fears",
@@ -478,13 +478,24 @@
             return moodSongs[Math.floor(Math.random() * moodSongs.length)];
         }
 
-        // Event listeners for buttons - ENHANCED with better feedback
+        // Event listeners for buttons - ENHANCED with YouTube functionality
         playBtn.addEventListener('click', () => {
-            console.log('Play button clicked for song:', currentSong);
-            showStatus(`Now playing: ${currentSong}`);
+            console.log('Find on YT button clicked for song:', currentSong);
             
+            if (!currentSong) {
+                showStatus('Please select a mood first!');
+                return;
+            }
             
-            alert(`🎵 Now playing: ${currentSong}\n\n(In a real app, this would start playing the song!)`);
+            // Generate YouTube search URL
+            const searchQuery = encodeURIComponent(currentSong);
+            const youtubeUrl = `https://www.youtube.com/results?search_query=${searchQuery}`;
+            
+            // Open YouTube in new tab
+            window.open(youtubeUrl, '_blank');
+            
+            showStatus(`Opening "${currentSong}" on YouTube!`);
+            console.log('YouTube URL:', youtubeUrl);
         });
 
         anotherSongBtn.addEventListener('click', () => {
